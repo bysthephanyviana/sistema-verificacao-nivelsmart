@@ -49,7 +49,17 @@ const tecnicoController = {
   async createTecnico(req, res) {
     try {
       const { id, nome, cargo, status } = req.body;
-      const foto_url = req.file ? `/uploads/${req.file.filename}` : null;
+      let foto_url = null;
+
+      if (req.file) {
+        // Converter imagem para Base64 para persistência no Render
+        const imgBuffer = fs.readFileSync(req.file.path);
+        const base64 = imgBuffer.toString('base64');
+        foto_url = `data:${req.file.mimetype};base64,${base64}`;
+        
+        // Deletar arquivo temporário
+        fs.unlinkSync(req.file.path);
+      }
 
       await Tecnico.create({ id, nome, cargo, status, foto_url });
       res.redirect('/admin');
@@ -80,7 +90,11 @@ const tecnicoController = {
       let { foto_url } = req.body;
 
       if (req.file) {
-        foto_url = `/uploads/${req.file.filename}`;
+        const imgBuffer = fs.readFileSync(req.file.path);
+        const base64 = imgBuffer.toString('base64');
+        foto_url = `data:${req.file.mimetype};base64,${base64}`;
+        
+        fs.unlinkSync(req.file.path);
       }
 
       await Tecnico.update(id, { nome, cargo, status, foto_url });
