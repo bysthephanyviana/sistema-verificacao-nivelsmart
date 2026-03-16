@@ -100,6 +100,29 @@ const tecnicoController = {
     } catch (err) {
       res.status(500).json({ error: 'Erro ao gerar QR Code' });
     }
+  },
+
+  // --- Autenticação ---
+  async loginPage(req, res) {
+    res.render('admin/login', { error: null });
+  },
+
+  async login(req, res) {
+    const { username, password } = req.body;
+    const adminUser = process.env.ADMIN_USER || 'admin';
+    const adminPass = process.env.ADMIN_PASS || 'nivelsmart2026';
+
+    if (username === adminUser && password === adminPass) {
+      req.session.isLoggedIn = true;
+      res.redirect('/admin');
+    } else {
+      res.render('admin/login', { error: 'Usuário ou senha inválidos' });
+    }
+  },
+
+  async logout(req, res) {
+    req.session = null;
+    res.redirect('/login');
   }
 };
 

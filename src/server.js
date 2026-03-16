@@ -1,10 +1,17 @@
-require('dotenv').config();
 const express = require('express');
 const path = require('path');
+const cookieSession = require('cookie-session');
 const tecnicoRoutes = require('./routes/tecnicoRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Configuração de Sessão
+app.use(cookieSession({
+  name: 'session',
+  keys: [process.env.SESSION_SECRET || 'nivelsmart-secret-key'],
+  maxAge: 24 * 60 * 60 * 1000 // 24 horas
+}));
 
 // Configuração do EJS
 app.set('view engine', 'ejs');
