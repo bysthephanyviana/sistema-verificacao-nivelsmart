@@ -18,6 +18,15 @@ if (process.env.DB_SSL === 'true') {
 
 const pool = new Pool(poolConfig);
 
+// Teste de conexão imediato
+pool.query('SELECT NOW()', (err, res) => {
+  if (err) {
+    console.error('❌ Erro ao conectar no Banco de Dados:', err.message);
+  } else {
+    console.log('✅ Banco de Dados conectado com sucesso!');
+  }
+});
+
 module.exports = {
   query: (text, params) => pool.query(text, params),
 };
