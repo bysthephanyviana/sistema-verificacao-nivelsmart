@@ -18,14 +18,31 @@ if (process.env.DB_SSL === 'true') {
 
 const pool = new Pool(poolConfig);
 
-// Teste de conexão imediato
-pool.query('SELECT NOW()', (err, res) => {
-  if (err) {
-    console.error('❌ Erro ao conectar no Banco de Dados:', err.message);
-  } else {
+// Teste de conexão e inicialização
+const initDb = async () => {
+  try {
+    const client = await pool.connect();
     console.log('✅ Banco de Dados conectado com sucesso!');
+    
+    // Criar tabela se não existir
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS tecnicos (
+        id VARCHAR(50) PRIMARY KEY,
+        nome VARCHAR(100) NOT NULL,
+        cargo VARCHAR(100) NOT NULL,
+        status VARCHAR(20) DEFAULT 'ATIVO',
+        foto_url TEXT,
+        data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+    console.log('✅ Tabelas verificadas/criadas com sucesso!');
+    client.release();
+  } catch (err) {
+    console.error('❌ Erro no Banco de Dados:', err.message);
   }
-});
+};
+
+initDb();
 
 module.exports = {
   query: (text, params) => pool.query(text, params),
