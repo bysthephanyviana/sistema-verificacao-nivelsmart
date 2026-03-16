@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Técnico - NivelSmart</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="/logo.png" alt="NivelSmart" class="logo">
+            <h1>Editar Técnico</h1>
+        </header>
+
+        <div class="card">
+            <form action="/admin/editar/<%= tecnico.id %>" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="foto_url" value="<%= tecnico.foto_url %>">
+                
+                <div class="form-group">
+                    <label>ID do Técnico</label>
+                    <input type="text" value="<%= tecnico.id %>" disabled style="background: #f4f4f4;">
+                </div>
+                <div class="form-group">
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" id="nome" name="nome" value="<%= tecnico.nome %>" required>
+                </div>
+                <div class="form-group">
+                    <label for="cargo">Cargo</label>
+                    <input type="text" id="cargo" name="cargo" value="<%= tecnico.cargo %>" required>
+                </div>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status" name="status">
+                        <option value="ATIVO" <%= tecnico.status === 'ATIVO' ? 'selected' : '' %>>ATIVO</option>
+                        <option value="INATIVO" <%= tecnico.status === 'INATIVO' ? 'selected' : '' %>>INATIVO</option>
+                    </select>
+                </div>
+                
+                <div style="margin-bottom: 15px; text-align: left;">
+                    <label>Foto Atual</label>
+                    <% if (tecnico.foto_url) { %>
+                        <img src="<%= tecnico.foto_url %>" style="width: 80px; height: 80px; border-radius: 8px; object-fit: cover; display: block; margin-top: 5px;">
+                    <% } else { %>
+                        <p style="font-size: 0.8rem; color: #999;">Sem foto cadastrada.</p>
+                    <% } %>
+                </div>
+
+                <div class="form-group">
+                    <label for="foto">Alterar Foto</label>
+                    <input type="file" id="foto" name="foto" accept="image/*">
+                </div>
+                
+                <div style="margin-top: 25px; display: flex; gap: 10px;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">Atualizar Dados</button>
+                    <a href="/admin" class="btn" style="background: #eee; flex: 1; text-align: center;">Voltar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

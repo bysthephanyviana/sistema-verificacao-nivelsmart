@@ -1,0 +1,198 @@
+:root {
+  --primary: #00a859; /* Verde NivelSmart */
+  --primary-dark: #008c4a;
+  --danger: #e74c3c;
+  --text-dark: #2c3e50;
+  --bg-light: #f8f9fa;
+  --white: #ffffff;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --radius: 12px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-dark);
+  line-height: 1.6;
+  padding: 20px;
+}
+
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Header */
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo {
+  max-width: 180px;
+  height: auto;
+}
+
+h1 {
+  font-size: 1.2rem;
+  margin-top: 10px;
+  font-weight: 600;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Card Validação */
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  text-align: center;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 15px;
+  border-radius: var(--radius);
+  font-weight: 800;
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+  gap: 10px;
+}
+
+.status-valid {
+  background-color: rgba(0, 168, 89, 0.1);
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+.status-invalid {
+  background-color: rgba(231, 76, 60, 0.1);
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}
+
+/* Técnico Info */
+.tecnico-foto {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 15px;
+  border: 3px solid var(--primary);
+  background-color: #eee;
+}
+
+.tecnico-nome {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.tecnico-cargo {
+  color: #7f8c8d;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.info-grid {
+  text-align: left;
+  background: #fdfdfd;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+.info-item {
+  margin-bottom: 10px;
+}
+
+.info-label {
+  font-size: 0.8rem;
+  color: #95a5a6;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.info-value {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* Admin Styles */
+.admin-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover { background: var(--primary-dark); }
+
+.table-responsive {
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+th { background: #f4f4f4; color: #555; }
+
+/* QR Modal simulation */
+#qrModal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  border-radius: 12px;
+  z-index: 1000;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+label { display: block; margin-bottom: 5px; font-weight: 600; }
+input, select { 
+  width: 100%; 
+  padding: 10px; 
+  border: 1px solid #ddd; 
+  border-radius: 6px; 
+}

@@ -1,0 +1,17 @@
+services:
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: nivelverificacao_user
+      POSTGRES_PASSWORD: nivelverificacao_password
+      POSTGRES_DB: nivelverificacao_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # Carrega o schema automaticamente ao iniciar o container pela primeira vez
+      - ./src/database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+
+volumes:
+  postgres_data:

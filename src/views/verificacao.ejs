@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validação de Técnico NivelSmart</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="/logo.png" alt="NivelSmart" class="logo">
+            <h1>Validação de Técnico</h1>
+        </header>
+
+        <div class="card">
+            <% if (autorizado) { %>
+                <div class="status-badge status-valid">
+                    <span>✔ Técnico Autorizado</span>
+                </div>
+
+                <% if (tecnico.foto_url) { %>
+                    <img src="<%= tecnico.foto_url %>" alt="Foto Técnico" class="tecnico-foto">
+                <% } else { %>
+                    <div class="tecnico-foto" style="display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #ccc;">👤</div>
+                <% } %>
+
+                <div class="tecnico-nome"><%= tecnico.nome %></div>
+                <div class="tecnico-cargo"><%= tecnico.cargo %></div>
+
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">Empresa</div>
+                        <div class="info-value">NivelSmart</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">ID do Técnico</div>
+                        <div class="info-value"><%= tecnico.id %></div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Status</div>
+                        <div class="info-value">ATIVO</div>
+                    </div>
+                </div>
+            <% } else { %>
+                <div class="status-badge status-invalid">
+                    <span>❌ Técnico não autorizado</span>
+                </div>
+                
+                <% if (tecnico) { %>
+                    <div class="tecnico-nome"><%= tecnico.nome %></div>
+                    <p style="margin-bottom: 20px; color: var(--danger); font-weight: 600;">Este colaborador está INATIVO no sistema.</p>
+                <% } else { %>
+                    <p style="margin-bottom: 20px; color: var(--danger); font-weight: 600;"><%= error || 'Código de técnico não encontrado.' %></p>
+                <% } %>
+
+                <div class="info-grid">
+                    <p style="font-size: 0.9rem; color: #666; text-align: center;">Se houver dúvidas, entre em contato com a central da NivelSmart.</p>
+                </div>
+            <% } %>
+        </div>
+
+        <footer style="margin-top: 30px; text-align: center; font-size: 0.8rem; color: #999;">
+            &copy; 2026 NivelSmart - Tecnologia em Monitoramento
+        </footer>
+    </div>
+</body>
+</html>

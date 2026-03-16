@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - NivelSmart</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="admin-body">
+    <div class="admin-container">
+        <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <img src="/logo.png" alt="NivelSmart" style="max-width: 120px;">
+                <h1 style="margin: 0;">Admin</h1>
+            </div>
+            <a href="/admin/novo" class="btn btn-primary">+ Novo Técnico</a>
+        </header>
+
+        <div class="card" style="text-align: left; padding: 0;">
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Foto</th>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Cargo</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% tecnicos.forEach(tecnico => { %>
+                            <tr>
+                                <td>
+                                    <% if (tecnico.foto_url) { %>
+                                        <img src="<%= tecnico.foto_url %>" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                                    <% } else { %>
+                                        <div style="width: 40px; height: 40px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center;">👤</div>
+                                    <% } %>
+                                </td>
+                                <td><strong><%= tecnico.id %></strong></td>
+                                <td><%= tecnico.nome %></td>
+                                <td><%= tecnico.cargo %></td>
+                                <td>
+                                    <span style="padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 700; background: <%= tecnico.status === 'ATIVO' ? '#dff9fb' : '#ffeaa7' %>; color: <%= tecnico.status === 'ATIVO' ? '#0984e3' : '#d63031' %>">
+                                        <%= tecnico.status %>
+                                    </span>
+                                </td>
+                                <td>
+                                    <a href="/admin/editar/<%= tecnico.id %>" style="color: #666; margin-right: 10px;">Editar</a>
+                                    <a href="javascript:void(0)" onclick="showQR('<%= tecnico.id %>')" style="color: var(--primary);">QR Code</a>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal QR Code -->
+    <div id="qrOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:999;" onclick="closeQR()"></div>
+    <div id="qrModal">
+        <h3>QR Code do Técnico</h3>
+        <p id="qrId" style="font-weight: 700; margin: 10px 0;"></p>
+        <img id="qrImg" src="" style="width: 200px; height: 200px; margin: 20px 0;">
+        <div style="display: flex; gap: 10px; justify-content: center;">
+            <button onclick="downloadQR()" class="btn btn-primary" id="btnDownload">Download</button>
+            <button onclick="closeQR()" class="btn" style="background: #eee;">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+        function showQR(id) {
+            document.getElementById('qrId').innerText = 'ID: ' + id;
+            fetch('/api/qrcode/' + id)
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('qrImg').src = data.qrDataUrl;
+                    document.getElementById('qrOverlay').style.display = 'block';
+                    document.getElementById('qrModal').style.display = 'block';
+                });
+        }
+
+        function closeQR() {
+            document.getElementById('qrOverlay').style.display = 'none';
+            document.getElementById('qrModal').style.display = 'none';
+        }
+
+        function downloadQR() {
+            const link = document.createElement('a');
+            link.href = document.getElementById('qrImg').src;
+            link.download = 'qrcode-' + document.getElementById('qrId').innerText.replace('ID: ', '') + '.png';
+            link.click();
+        }
+    </script>
+</body>
+</html>
