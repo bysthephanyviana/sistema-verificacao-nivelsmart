@@ -137,6 +137,18 @@ const tecnicoController = {
   async logout(req, res) {
     req.session = null;
     res.redirect('/login');
+  },
+
+  // Painel Administrativo - Deletar Técnico
+  async deleteTecnico(req, res) {
+    try {
+      const { id } = req.params;
+      await Tecnico.delete(id);
+      res.redirect('/admin');
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Erro ao deletar técnico');
+    }
   }
 };
 

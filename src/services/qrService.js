@@ -1,9 +1,10 @@
 const QRCode = require('qrcode');
 
 const qrService = {
-  async generate(id) {
+  async generate(id, type = 'tecnico') {
     const baseUrl = process.env.BASE_URL || 'http://localhost:3000';
-    const url = `${baseUrl}/verificacao/${id}`;
+    const relPath = type === 'dispositivo' ? `/verificacao/dispositivo/${id}` : `/verificacao/${id}`;
+    const url = `${baseUrl}${relPath}`;
     
     try {
       // Gera QR Code como Data URL (base64)

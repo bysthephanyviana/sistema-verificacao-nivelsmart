@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validação de Dispositivo - NivelSmart</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="/logo.png" alt="NivelSmart" class="logo">
+            <h1>Validação de Dispositivo</h1>
+        </header>
+
+        <div class="card">
+            <% if (autorizado) { %>
+                <div class="status-badge status-valid">
+                    <span>✔ Dispositivo Ativo</span>
+                </div>
+
+                <div class="tecnico-nome"><%= dispositivo.nome %></div>
+                <div class="tecnico-cargo" style="color: var(--primary); font-weight: 700;">ATIVO</div>
+
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">Condomínio</div>
+                        <div class="info-value"><%= dispositivo.condominio %></div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">ID do Dispositivo</div>
+                        <div class="info-value"><%= dispositivo.id %></div>
+                    </div>
+                </div>
+            <% } else { %>
+                <div class="status-badge status-invalid">
+                    <span>❌ Dispositivo Inativo</span>
+                </div>
+                
+                <% if (dispositivo) { %>
+                    <div class="tecnico-nome"><%= dispositivo.nome %></div>
+                    <p style="margin-bottom: 20px; color: var(--danger); font-weight: 600;">Este dispositivo está INATIVO no sistema.</p>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Condomínio</div>
+                            <div class="info-value"><%= dispositivo.condominio %></div>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <p style="margin-bottom: 20px; color: var(--danger); font-weight: 600;"><%= error || 'Código de dispositivo não encontrado.' %></p>
+                <% } %>
+
+                <div class="info-grid" style="margin-top: 20px;">
+                    <p style="font-size: 0.9rem; color: #666; text-align: center;">Se houver dúvidas, entre em contato com a central da NivelSmart.</p>
+                </div>
+            <% } %>
+        </div>
+
+        <footer style="margin-top: 30px; text-align: center; font-size: 0.8rem; color: #999;">
+            &copy; 2026 NivelSmart - Tecnologia em Monitoramento
+        </footer>
+    </div>
+</body>
+</html>

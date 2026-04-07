@@ -18,6 +18,7 @@ router.get('/admin/novo', authMiddleware, tecnicoController.adminCreatePage);
 router.post('/admin/novo', authMiddleware, upload.single('foto'), tecnicoController.createTecnico);
 router.get('/admin/editar/:id', authMiddleware, tecnicoController.adminEditPage);
 router.post('/admin/editar/:id', authMiddleware, upload.single('foto'), tecnicoController.updateTecnico);
+router.get('/admin/deletar/:id', authMiddleware, tecnicoController.deleteTecnico);
 
 // API QR Code
 router.get('/api/qrcode/:id', tecnicoController.getQRCode);

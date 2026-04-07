@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Dispositivo - NivelSmart</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="admin-body">
+    <div class="admin-container">
+        <header style="margin-bottom: 2rem;">
+            <a href="/admin/dispositivos" style="color: var(--primary); text-decoration: none; font-weight: 700;">← Voltar para lista</a>
+            <h1 style="margin-top: 10px;">Editar Dispositivo</h1>
+        </header>
+
+        <div class="card">
+            <form action="/admin/dispositivos/editar/<%= dispositivo.id %>" method="POST">
+                <div class="form-group">
+                    <label for="id">ID Único (Não editável)</label>
+                    <input type="text" id="id" name="id_disabled" value="<%= dispositivo.id %>" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label for="nome">Nome do Dispositivo</label>
+                    <input type="text" id="nome" name="nome" value="<%= dispositivo.nome %>" required placeholder="Ex: Câmera IP Intelbras">
+                </div>
+
+                <div class="form-group">
+                    <label for="id_service">ID Service</label>
+                    <input type="text" id="id_service" name="id_service" value="<%= dispositivo.id_service %>" required placeholder="Ex: SERV-12345">
+                </div>
+
+                <div class="form-group">
+                    <label for="condominio">Nome do Condomínio</label>
+                    <input type="text" id="condominio" name="condominio" value="<%= dispositivo.condominio %>" required placeholder="Ex: Residencial Solar">
+                </div>
+
+                <div class="form-group">
+                    <label for="quantidade_estoque">Quantidade em Estoque</label>
+                    <input type="number" id="quantidade_estoque" name="quantidade_estoque" value="<%= dispositivo.quantidade_estoque %>" min="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status" name="status">
+                        <option value="ATIVO" <%= dispositivo.status === 'ATIVO' ? 'selected' : '' %>>ATIVO</option>
+                        <option value="INATIVO" <%= dispositivo.status === 'INATIVO' ? 'selected' : '' %>>INATIVO</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Atualizar Dispositivo</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

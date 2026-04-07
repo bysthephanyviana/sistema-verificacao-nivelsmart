@@ -22,8 +22,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const tecnicoRoutes = require('./routes/tecnicoRoutes');
+const dispositivoRoutes = require('./routes/dispositivoRoutes');
+
 // Rotas
 app.use('/', tecnicoRoutes);
+app.use('/', dispositivoRoutes);
 
 // Tratamento de erros 404
 app.use((req, res) => {
