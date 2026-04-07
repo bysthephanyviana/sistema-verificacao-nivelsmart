@@ -6,6 +6,13 @@ const tecnicoRoutes = require('./routes/tecnicoRoutes');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Configuração do EJS
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// Middlewares (Arquivos estáticos primeiro)
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Configuração de Sessão
 app.use(cookieSession({
   name: 'session',
@@ -13,14 +20,9 @@ app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000 // 24 horas
 }));
 
-// Configuração do EJS
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-
-// Middlewares
+// Middlewares de Parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
 
 const tecnicoRoutes = require('./routes/tecnicoRoutes');
 const dispositivoRoutes = require('./routes/dispositivoRoutes');
