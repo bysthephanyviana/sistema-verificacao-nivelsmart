@@ -1,5 +1,4 @@
 const { Pool } = require('pg');
-require('dotenv').config();
 
 const poolConfig = {
   user: process.env.DB_USER,
@@ -24,7 +23,7 @@ const initDb = async () => {
     const client = await pool.connect();
     console.log('✅ Banco de Dados conectado com sucesso!');
     
-    // Criar tabela se não existir
+    // Criar tabela tecnicos se não existir
     await client.query(`
       CREATE TABLE IF NOT EXISTS tecnicos (
         id VARCHAR(50) PRIMARY KEY,
@@ -35,6 +34,20 @@ const initDb = async () => {
         data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
+
+    // Criar tabela dispositivos se não existir
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS dispositivos (
+        id VARCHAR(50) PRIMARY KEY,
+        nome VARCHAR(100),
+        id_service VARCHAR(100) NOT NULL,
+        condominio VARCHAR(150) NOT NULL,
+        quantidade_estoque INT DEFAULT 0,
+        status VARCHAR(20) DEFAULT 'ATIVO',
+        data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
     console.log('✅ Tabelas verificadas/criadas com sucesso!');
     client.release();
   } catch (err) {

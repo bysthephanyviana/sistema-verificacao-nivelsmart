@@ -1,7 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const cookieSession = require('cookie-session');
 const tecnicoRoutes = require('./routes/tecnicoRoutes');
+const dispositivoRoutes = require('./routes/dispositivoRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,9 +25,6 @@ app.use(cookieSession({
 // Middlewares de Parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-const tecnicoRoutes = require('./routes/tecnicoRoutes');
-const dispositivoRoutes = require('./routes/dispositivoRoutes');
 
 // Rotas
 app.use('/', tecnicoRoutes);

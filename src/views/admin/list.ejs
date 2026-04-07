@@ -58,6 +58,11 @@
                                 </td>
                             </tr>
                         <% }) %>
+                        <% if (tecnicos.length === 0) { %>
+                            <tr>
+                                <td colspan="6" style="text-align: center; padding: 2rem; color: #999;">Nenhum técnico cadastrado ainda.</td>
+                            </tr>
+                        <% } %>
                     </tbody>
                 </table>
             </div>
@@ -66,7 +71,7 @@
 
     <!-- Modal QR Code -->
     <div id="qrOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:999;" onclick="closeQR()"></div>
-    <div id="qrModal">
+    <div id="qrModal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:white; padding:2rem; border-radius:10px; z-index:1000; text-align:center;">
         <h3>QR Code do Técnico</h3>
         <p id="qrId" style="font-weight: 700; margin: 10px 0;"></p>
         <img id="qrImg" src="" style="width: 200px; height: 200px; margin: 20px 0;">

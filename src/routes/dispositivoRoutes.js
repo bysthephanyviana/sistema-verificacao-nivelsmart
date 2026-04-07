@@ -14,7 +14,7 @@ router.get('/admin/dispositivos/editar/:id', authMiddleware, dispositivoControll
 router.post('/admin/dispositivos/editar/:id', authMiddleware, dispositivoController.updateDispositivo);
 router.get('/admin/dispositivos/deletar/:id', authMiddleware, dispositivoController.deleteDispositivo);
 
-// API QR Code
-router.get('/api/dispositivo/qrcode/:id', authMiddleware, dispositivoController.getQRCode);
+// API QR Code (sem authMiddleware — chamado via fetch no admin, consistente com rota de técnicos)
+router.get('/api/dispositivo/qrcode/:id', dispositivoController.getQRCode);
 
 module.exports = router;
